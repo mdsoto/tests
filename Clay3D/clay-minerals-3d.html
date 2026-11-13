@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Clay minerals in 3D</title>
+<style>
+:root{--bg:#f3f5f2;--fg:#1d2a26;--mut:#5b6b65;--card:#ffffff;--line:#cfd8d3;--acc:#1f6f5c;--accfg:#fff;--stage:#e9eeea;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14201c;--fg:#e4ece8;--mut:#9fb2aa;--card:#1c2b26;--line:#2f4239;--acc:#5fd1b3;--accfg:#0d1a15;--stage:#0f1a16}}
+:root[data-theme="dark"]{--bg:#14201c;--fg:#e4ece8;--mut:#9fb2aa;--card:#1c2b26;--line:#2f4239;--acc:#5fd1b3;--accfg:#0d1a15;--stage:#0f1a16}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 "Source Serif 4",Georgia,"Times New Roman",serif}
+.wrap{max-width:980px;margin:0 auto;padding:16px 14px 28px}
+h1{font:600 22px/1.2 "Source Serif 4",Georgia,serif;margin:0 0 4px}
+.sub{margin:0 0 12px;color:var(--mut);font-size:14px}
+button{font:500 14px system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 12px;cursor:pointer;min-height:38px}
+button:hover{border-color:var(--acc)}
+button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+button.on{background:var(--acc);color:var(--accfg);border-color:var(--acc)}
+.row{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.tabs{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px}
+.tabs button{white-space:nowrap}
+#stage{position:relative;height:clamp(320px,56vh,560px);background:var(--stage);border:1px solid var(--line);border-radius:12px;overflow:hidden;touch-action:none;cursor:grab}
+#stage:active{cursor:grabbing}
+#stage canvas{display:block}
+#hint{position:absolute;left:10px;bottom:8px;font:12px system-ui,sans-serif;color:var(--mut);pointer-events:none}
+.bar{justify-content:space-between}
+.bar .g{display:flex;gap:6px;flex-wrap:wrap}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font:13px system-ui,sans-serif;color:var(--mut);margin:10px 0}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.card h2{font:600 18px/1.2 "Source Serif 4",Georgia,serif;margin:0 0 8px}
+dl{display:grid;grid-template-columns:max-content 1fr;gap:3px 14px;margin:0 0 10px;font:14px system-ui,sans-serif}
+dt{color:var(--mut)}dd{margin:0}
+.card p{margin:0;max-width:72ch}
+.pr{margin:0 0 10px;font-size:14px;color:var(--mut);max-width:80ch}
+.intro{max-width:80ch;margin:0 0 10px}
+.tw{overflow-x:auto;margin:0 0 12px}
+table{border-collapse:collapse;width:100%;font:13px system-ui,-apple-system,sans-serif;background:var(--card);border:1px solid var(--line)}
+caption{caption-side:bottom;text-align:left;color:var(--mut);padding:6px 2px;font-size:12px}
+th,td{text-align:left;padding:6px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--mut);font-weight:600}
+td:last-child,th:last-child{font-weight:600}
+#hlnote{min-height:2.9em}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Clay minerals in 3D</h1>
+<p class="sub">Schematic of the five clay groups, after Brindley.</p>
+<p class="intro">Clay minerals are layered aluminosilicates built from two kinds of sheets: tetrahedral (T) sheets of SiO₄ and octahedral (O) sheets of Al or Mg bonded to O and OH. A layer is either 1:1 (T + O) or 2:1 (T + O + T). The layer thickness, the charge, and what sits between layers (nothing, K⁺, hydrated cations, or a hydroxide sheet) set each mineral’s swelling and cation exchange capacity (CEC). Pick a mineral, then use the sheet buttons to highlight its tetrahedral or octahedral layers.</p>
+<p class="intro"><b>Si–Al and Al–Mg</b> mark sites where one cation replaces another of similar size (isomorphous substitution), not compounds. In <b>Si–Al</b> (tan), Al³⁺ replaces Si⁴⁺ in a tetrahedral site. In <b>Al–Mg</b> (purple), Mg²⁺ replaces Al³⁺ in an octahedral site. Each substitution lowers the cation charge and leaves the layer with a permanent negative charge, which is balanced by exchangeable interlayer cations (K⁺, Na⁺, Ca²⁺, Mg²⁺). This is the origin of the CEC. Tetrahedral substitution (illite, mica, vermiculite) sits closer to the interlayer and binds cations more strongly than octahedral substitution (montmorillonite).</p>
+<p class="intro"><b>CEC is a consequence of the clay structure:</b> the more cation substitution a layer has, the larger its negative charge and the more exchangeable cations it holds. Accessibility of the interlayer also matters: K⁺ is locked in illite and mica, while hydrated interlayers in montmorillonite and vermiculite are open.</p>
+<div class="tw"><table>
+<caption>CEC in meq/100 g, from the reference figure; layer charge is typical per formula unit</caption>
+<thead><tr><th>Mineral</th><th>Layer type</th><th>Main substitution</th><th>Layer charge</th><th>CEC</th></tr></thead>
+<tbody>
+<tr><td>Kaolinite</td><td>1:1</td><td>Almost none</td><td>≈ 0</td><td>3–5</td></tr>
+<tr><td>Chlorite</td><td>2:1:1</td><td>Variable; balanced by hydroxide sheet</td><td>variable</td><td>10–40</td></tr>
+<tr><td>Illite / mica</td><td>2:1</td><td>Al³⁺ for Si⁴⁺ (tetrahedral)</td><td>≈ 0.6–1.0</td><td>10–40</td></tr>
+<tr><td>Montmorillonite</td><td>2:1</td><td>Mg²⁺ for Al³⁺ (octahedral)</td><td>≈ 0.2–0.6</td><td>80–150</td></tr>
+<tr><td>Vermiculite</td><td>2:1</td><td>Al³⁺ for Si⁴⁺ (tetrahedral)</td><td>≈ 0.6–0.9</td><td>100–260</td></tr>
+</tbody></table></div>
+<p class="pr">Pauling radius ratio: Si⁴⁺ (r/r<sub>O</sub> ≈ 0.3) fits tetrahedral sites; Mg²⁺ (≈ 0.5) fits octahedral sites; Al³⁺ (≈ 0.4) is borderline and occurs in both.</p>
+<div class="row tabs" id="tabs" role="tablist"></div>
+<div id="stage"><div id="hint">Drag: rotate · Wheel or pinch: zoom</div></div>
+<div class="row bar">
+ <div class="g" id="views">
+  <button data-v="3d" class="on">3D view</button><button data-v="side">Side view</button><button data-v="top">Top view</button>
+ </div>
+ <div class="g">
+  <button id="run">⏸ Stop</button><button id="zo" aria-label="Zoom out">−</button><button id="zi" aria-label="Zoom in">+</button><button id="rs">Reset</button>
+ </div>
+</div>
+<div class="row" id="hl"><button data-h="all" class="on">All layers</button><button data-h="T">Tetrahedral sheets</button><button data-h="O">Octahedral sheets</button></div>
+<p class="pr" id="hlnote"></p>
+<div class="legend">
+ <span><i style="background:#6fb1e8"></i>Oxygen</span><span><i style="background:#35b25c"></i>OH</span>
+ <span><i style="background:#666"></i>Si</span><span><i style="background:#d99a5c"></i>Si–Al</span>
+ <span><i style="background:#f0d03c"></i>Al</span><span><i style="background:#c04aa8"></i>Al–Mg</span>
+ <span><i style="background:#5b1a8a"></i>K⁺</span><span><i style="background:#ff9f43"></i>Na⁺</span>
+ <span><i style="background:#2e9e8e"></i>Mg²⁺ (interlayer)</span><span><i style="background:#9fd3ff"></i>H₂O</span>
+</div>
+<div class="card" id="info"></div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+var N=5,D=2.7,H=Math.sqrt(3)/2,TOP=6.3;
+var P=function(i,j){return [D*(i+j/2),D*H*j]};
+var C=function(a,b,c){return [(a[0]+b[0]+c[0])/3,(a[1]+b[1]+c[1])/3]};
+var m3=function(i,j){return ((i-j)%3+3)%3};
+var A=function(xy,z,t,c){return {x:xy[0],y:xy[1],z:z,t:t,c:c||0}};
+var COL={O:[0x6fb1e8,.58],OH:[0x35b25c,.6],Si:[0x666666,.3],SiAl:[0xd99a5c,.34],Al:[0xf0d03c,.38],AlMg:[0xc04aa8,.42],K:[0x5b1a8a,.95],W:[0x9fd3ff,.36],Na:[0xff9f43,.55],Mg:[0x2e9e8e,.5]};
+
+function tet(sub){var a=[],i,j,c;
+ for(i=0;i<=N;i++)for(j=0;j<=N;j++)a.push(A(P(i,j),0,'O'));
+ for(i=0;i<N;i++)for(j=0;j<N;j++){c=C(P(i,j),P(i+1,j),P(i,j+1));
+  if(m3(i,j)==0)a.push(A(c,2.1,'OH'));
+  else{a.push(A(c,2.1,'O'));a.push(A(c,.5,(sub&&(i+2*j)%4==0)?'SiAl':'Si',1));}}
+ return a}
+function oct(z,tri,fn){var a=[],i,j;
+ for(i=0;i<N;i++)for(j=0;j<N;j++){if(!tri&&m3(i,j)==1)continue;
+  a.push(A(C(P(i+1,j),P(i,j+1),P(i+1,j+1)),z,fn(i,j),2));}
+ return a}
+function layer(k,sub,tri,fn){var a=tet(sub).concat(oct(3.15,tri,fn)),i,j;
+ if(k==1){for(i=0;i<=N;i++)for(j=0;j<=N;j++)a.push(A(P(i,j),4.2,'OH'));}
+ else{var cc=C(P(3,2),P(2,3),P(3,3));
+  tet(sub).forEach(function(s){a.push({x:2*cc[0]-s.x,y:2*cc[1]-s.y,z:2*3.15-s.z,t:s.t,c:s.c});});}
+ return a}
+function brucite(z0){var a=[],i,j;
+ for(i=0;i<=N;i++)for(j=0;j<=N;j++)a.push(A(P(i,j),z0,'OH'));
+ for(i=0;i<N;i++)for(j=0;j<N;j++){a.push(A(C(P(i,j),P(i+1,j),P(i,j+1)),z0+2.1,'OH'));
+  a.push(A(C(P(i+1,j),P(i,j+1),P(i+1,j+1)),z0+1.05,'AlMg',2));}
+ return a}
+function water(a,m,z0,z1,b){var g=z1-z0;
+ [.22,.5,.78].forEach(function(f,pi){var n=0,r=0,x,y;
+  for(y=b.y0+1;y<b.y1;y+=3.3,r++)for(x=b.x0+1+(r%2)*1.9;x<b.x1;x+=3.8,n++){
+   var h=(n*37+pi*11+r*5)%7/7-.5;
+   a.push(A([x+h*.8,y-h*.6],z0+g*f+h*.5,(pi==1&&n%m.ev==0)?m.cat:'W'));}});}
+
+var M=[
+{n:'Kaolinite',k:1,sp:7.2,sub:0,tri:0,oct:function(){return 'Al'},type:'1:1 (T–O), dioctahedral',cec:'3–5',chg:'≈ 0',inter:'None. Layers are held by OH···O hydrogen bonds (dashed).',
+ why:'The layer is electrically neutral, so no cations are needed between layers. Hydrogen bonds between the OH plane and the next basal O plane (O–H···O, ~3 Å) lock d₀₀₁ at 7.2 Å: no swelling and almost no cation exchange.'},
+{n:'Illite / mica',k:2,sp:10,sub:1,tri:0,oct:function(){return 'Al'},il:'K',type:'2:1 (T–O–T), dioctahedral',cec:'10–40',chg:'≈ 0.6–1.0',inter:'Dehydrated K⁺ in the hexagonal rings of basal oxygens.',
+ why:'Al³⁺ replaces Si⁴⁺ in the T sheet, giving a negative layer. K⁺ (r ≈ 1.38 Å) fits the ring and its hydration energy is low, so Coulomb attraction (F ∝ q₁q₂/r²) wins: the layers collapse to 10 Å and do not expand.'},
+{n:'Montmorillonite',k:2,sp:15,sub:0,tri:0,oct:function(i,j){return (i+j)%3==0?'AlMg':'Al'},il:'W',cat:'Na',ev:5,type:'2:1 (T–O–T), dioctahedral smectite',cec:'80–150',chg:'≈ 0.2–0.6',inter:'Hydrated exchangeable cations (Na⁺, Ca²⁺) plus water layers.',
+ why:'Mg²⁺ replaces Al³⁺ in the O sheet: a low, deep-seated charge. The attraction to interlayer cations is weaker than their hydration energy, so water enters and d₀₀₁ grows from ~10 to 15 Å or more (swelling).'},
+{n:'Chlorite',k:2,sp:14.2,sub:1,tri:1,oct:function(){return 'AlMg'},il:'B',type:'2:1:1, trioctahedral',cec:'10–40',chg:'variable, balanced by the hydroxide sheet',inter:'Brucite-like Mg/Al hydroxide sheet.',
+ why:'A positively charged Mg,Al(OH)₆ sheet sits between the negative 2:1 layers. Electrostatic attraction plus hydrogen bonding fix d₀₀₁ near 14 Å, with little swelling and a low CEC.'},
+{n:'Vermiculite',k:2,sp:14.3,sub:1,tri:1,oct:function(){return 'AlMg'},il:'W',cat:'Mg',ev:2,type:'2:1 (T–O–T), trioctahedral',cec:'100–260',chg:'≈ 0.6–0.9',inter:'Hydrated Mg²⁺ (dense) and water.',
+ why:'High charge from Al³⁺ for Si⁴⁺ in the T sheet means many interlayer cations, hence the highest CEC (meq/100 g ∝ layer charge per unit mass). Strong attraction limits swelling to one or two water layers (~14 Å).'}
+];
+
+M.splice(1,0,M.splice(3,1)[0]);
+var stage=document.getElementById('stage');
+var R=new THREE.WebGLRenderer({antialias:true,alpha:true});
+R.setPixelRatio(Math.min(window.devicePixelRatio||1,2));R.setClearColor(0,0);
+stage.insertBefore(R.domElement,stage.firstChild);
+var S=new THREE.Scene(),cam=new THREE.PerspectiveCamera(40,1,.1,500);cam.up.set(0,0,1);
+S.add(new THREE.AmbientLight(0xffffff,.7));var dl=new THREE.DirectionalLight(0xffffff,.7);dl.position.set(20,-30,40);S.add(dl);
+var geo={};function sph(t){return geo[t]||(geo[t]=new THREE.SphereGeometry(COL[t][1],18,14))}
+var mats={};function mat(t){return mats[t]||(mats[t]=new THREE.MeshPhongMaterial({color:COL[t][0],shininess:40}))}
+function label(t){var c=document.createElement('canvas');c.width=300;c.height=64;var g=c.getContext('2d');
+ g.fillStyle='rgba(255,255,255,.93)';g.fillRect(0,0,300,64);g.fillStyle='#1d2a26';g.font='600 28px system-ui,sans-serif';g.textAlign='center';g.textBaseline='middle';g.fillText(t,150,33);
+ var s=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),depthTest:false}));s.scale.set(7.5,1.6,1);s.renderOrder=9;return s}
+
+var grp=null,tx=0,ty=0,tz=5,r0=40,bl=[],meshes=[],hl='all',box=null;
+function build(m){
+ if(grp)S.remove(grp);grp=new THREE.Group();meshes=[];box=null;
+ var atoms=[],k,L,mid=0;
+ for(k=0;k<2;k++){L=layer(m.k,m.sub,m.tri,m.oct);L.forEach(function(a){a.z+=k*m.sp;a.l=k});atoms=atoms.concat(L)}
+ var b={x0:1e9,x1:-1e9,y0:1e9,y1:-1e9};
+ atoms.forEach(function(a){b.x0=Math.min(b.x0,a.x);b.x1=Math.max(b.x1,a.x);b.y0=Math.min(b.y0,a.y);b.y1=Math.max(b.y1,a.y)});
+ var z0=TOP,z1=m.sp;
+ if(m.il=='K'){atoms.filter(function(a){return a.l==0&&a.t=='OH'&&a.z>4&&a.z<5}).forEach(function(a){atoms.push(A([a.x,a.y],(z0+z1)/2,'K'))})}
+ if(m.il=='W'){water(atoms,m,z0,z1,b);
+  var bx=new THREE.Mesh(new THREE.BoxGeometry(b.x1-b.x0+1,b.y1-b.y0+1,z1-z0),new THREE.MeshBasicMaterial({color:0x6fc0ff,transparent:true,opacity:.1,depthWrite:false}));
+  bx.position.set((b.x0+b.x1)/2,(b.y0+b.y1)/2,(z0+z1)/2);box=bx;grp.add(bx)}
+ if(m.il=='B'){atoms=atoms.concat(brucite(z0+(m.sp-TOP-2.1)/2).map(function(a){a.b=1;return a}))}
+ function fl(a){if(a.b)return 'O';if(a.l===undefined)return 'I';var zr=a.z-a.l*m.sp,e=.1;
+  if(zr<2.1-e)return 'T';if(zr<2.1+e)return 'TO';if(m.k==1)return 'O';
+  if(zr<4.2-e)return 'O';if(zr<4.2+e)return 'TO';return 'T'}
+ atoms.forEach(function(a){var s=new THREE.Mesh(sph(a.t),mat(a.t));s.position.set(a.x,a.y,a.z);s.userData.f=fl(a);s.userData.t=a.t;meshes.push(s);grp.add(s)});
+ var pos=[[],[],[]],i,j,p,q,dx,dy,dz,cut;
+ for(i=0;i<atoms.length;i++){p=atoms[i];if(!p.c)continue;cut=p.c==1?1.85:2.15;
+  for(j=0;j<atoms.length;j++){q=atoms[j];if(q.t!='O'&&q.t!='OH')continue;
+   dx=p.x-q.x;dy=p.y-q.y;dz=p.z-q.z;if(dx*dx+dy*dy+dz*dz<cut*cut)pos[p.c].push(p.x,p.y,p.z,q.x,q.y,q.z)}}
+ bl=[0,1,2].map(function(c){if(!c)return null;var g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos[c],3));var l=new THREE.LineSegments(g,new THREE.LineBasicMaterial({color:0x8a939c,transparent:true}));grp.add(l);return l});
+ 
+ if(m.n=='Kaolinite'){var hp=[];
+  atoms.forEach(function(p){if(p.l!=0||p.t!='OH'||p.z<4||p.z>5)return;
+   atoms.forEach(function(q){if(q.l==1&&q.t=='O'&&q.z<m.sp+.1){dx=p.x-q.x;dy=p.y-q.y;dz=p.z-q.z;
+    if(dx*dx+dy*dy+dz*dz<3.3*3.3)hp.push(p.x,p.y,p.z,q.x,q.y,q.z)}})});
+  var hg=new THREE.BufferGeometry();hg.setAttribute('position',new THREE.Float32BufferAttribute(hp,3));
+  var hl=new THREE.LineSegments(hg,new THREE.LineDashedMaterial({color:0x1aa7c9,dashSize:.25,gapSize:.15}));hl.computeLineDistances();grp.add(hl)}
+ var xm=b.x1+2,ym=(b.y0+b.y1)/2,dp=[xm,ym,0,xm,ym,m.sp,xm-.5,ym,0,xm+.5,ym,0,xm-.5,ym,m.sp,xm+.5,ym,m.sp];
+ var dg=new THREE.BufferGeometry();dg.setAttribute('position',new THREE.Float32BufferAttribute(dp,3));
+ grp.add(new THREE.LineSegments(dg,new THREE.LineBasicMaterial({color:0xe0a030})));
+ var lb=label('d(001) = '+m.sp+' Å');lb.position.set(xm+4.2,ym,m.sp/2);grp.add(lb);applyHL();
+ var cx=(b.x0+b.x1)/2,cy=(b.y0+b.y1)/2;grp.position.set(-cx,-cy,0);S.add(grp);
+ tz=(m.sp+TOP)/2;r0=Math.max(m.sp+TOP,22)*1.9;
+ document.getElementById('info').innerHTML='<h2>'+m.n+'</h2><dl><dt>Layer type</dt><dd>'+m.type+'</dd><dt>d(001)</dt><dd>'+m.sp+' Å</dd><dt>CEC</dt><dd>'+m.cec+' meq/100 g</dd><dt>Layer charge</dt><dd>'+m.chg+' per formula unit</dd><dt>Interlayer</dt><dd>'+m.inter+'</dd></dl><p>'+m.why+'</p>';
+}
+var GH={},HN={all:'Showing every sheet. Use the buttons to isolate one type.',T:'Tetrahedral sheets (orange bonds): SiO₄ tetrahedra, Si⁴⁺ with coordination 4, sharing three corners in hexagonal rings. Al³⁺ replacing Si⁴⁺ here creates layer charge.',O:'Octahedral sheets (blue bonds): Al³⁺ or Mg²⁺ with coordination 6 to O²⁻ and OH⁻. Dioctahedral: 2 of 3 sites filled (Al); trioctahedral: all 3 filled (Mg).'};
+function gmat(t){return GH[t]||(GH[t]=new THREE.MeshPhongMaterial({color:COL[t][0],transparent:true,opacity:.1,depthWrite:false}))}
+function applyHL(){var all=hl=='all';
+ meshes.forEach(function(s){s.material=(all||s.userData.f.indexOf(hl)>=0)?mat(s.userData.t):gmat(s.userData.t)});
+ [[1,'T',0xff8a3d],[2,'O',0x3d9bff]].forEach(function(b){var l=bl[b[0]];if(!l)return;var on=!all&&hl==b[1];
+  l.material.color.setHex(on?b[2]:0x8a939c);l.material.opacity=(all||on)?1:.08});
+ if(box)box.material.opacity=all?.1:.03;
+ document.getElementById('hlnote').textContent=HN[hl]}
+var tabs=document.getElementById('tabs');
+M.forEach(function(m,i){var b=document.createElement('button');b.textContent=m.n;b.setAttribute('role','tab');if(!i)b.className='on';
+ b.onclick=function(){[].forEach.call(tabs.children,function(x){x.className=''});b.className='on';build(m)};tabs.appendChild(b)});
+
+var th=.6,ph=1.1,zoom=1,run=true,tt=null,tp=null,pts={},np=0,pd=0;
+var wrap=function(a){return Math.atan2(Math.sin(a),Math.cos(a))};
+var clamp=function(v,a,b){return Math.max(a,Math.min(b,v))};
+var runB=document.getElementById('run'),views=document.getElementById('views');
+function setRun(v){run=v;runB.textContent=v?'⏸ Stop':'▶ Rotate'}
+function setView(v){[].forEach.call(views.children,function(x){x.className=x.dataset.v==v?'on':''})}
+function dist(){var k=Object.keys(pts);return Math.hypot(pts[k[0]][0]-pts[k[1]][0],pts[k[0]][1]-pts[k[1]][1])}
+stage.addEventListener('pointerdown',function(e){stage.setPointerCapture(e.pointerId);pts[e.pointerId]=[e.clientX,e.clientY];np=Object.keys(pts).length;tt=tp=null;if(np==2)pd=dist()});
+stage.addEventListener('pointermove',function(e){var o=pts[e.pointerId];if(!o)return;
+ pts[e.pointerId]=[e.clientX,e.clientY];
+ if(np==1){th-=(e.clientX-o[0])*.008;ph=clamp(ph-(e.clientY-o[1])*.008,.02,Math.PI-.02);setView('')}
+ else if(np==2){var d=dist();zoom=clamp(zoom*d/pd,.4,4);pd=d}});
+function up(e){delete pts[e.pointerId];np=Object.keys(pts).length}
+stage.addEventListener('pointerup',up);stage.addEventListener('pointercancel',up);
+stage.addEventListener('wheel',function(e){e.preventDefault();zoom=clamp(zoom*Math.exp(-e.deltaY*.0015),.4,4)},{passive:false});
+runB.onclick=function(){setRun(!run)};
+document.getElementById('zi').onclick=function(){zoom=clamp(zoom*1.25,.4,4)};
+document.getElementById('zo').onclick=function(){zoom=clamp(zoom/1.25,.4,4)};
+document.getElementById('rs').onclick=function(){zoom=1;tt=th;tp=1.1;setView('3d');setRun(true)};
+views.onclick=function(e){var v=e.target.dataset&&e.target.dataset.v;if(!v)return;setView(v);
+ if(v=='3d'){tt=th;tp=1.1}else{setRun(false);if(v=='side'){tt=th;tp=Math.PI/2}else{tt=th;tp=.02}}};
+function size(){var w=stage.clientWidth,h=stage.clientHeight;R.setSize(w,h);cam.aspect=w/h;cam.updateProjectionMatrix()}
+if(window.ResizeObserver)new ResizeObserver(size).observe(stage);else window.addEventListener('resize',size);
+document.getElementById('hl').onclick=function(e){var h=e.target.dataset&&e.target.dataset.h;if(!h)return;hl=h;
+ [].forEach.call(this.children,function(x){x.className=x.dataset.h==h?'on':''});applyHL()};
+size();build(M[0]);
+(function frame(){
+ if(run&&np==0&&tt===null)th+=.006;
+ if(tt!==null){th+=wrap(tt-th)*.12;ph+=(tp-ph)*.12;if(Math.abs(wrap(tt-th))<.002&&Math.abs(tp-ph)<.002)tt=tp=null}
+ var r=r0/zoom;cam.position.set(tx+r*Math.sin(ph)*Math.cos(th),ty+r*Math.sin(ph)*Math.sin(th),tz+r*Math.cos(ph));
+ cam.lookAt(tx,ty,tz);R.render(S,cam);requestAnimationFrame(frame)})();
+})();
+</script>
+</body>
+</html>
